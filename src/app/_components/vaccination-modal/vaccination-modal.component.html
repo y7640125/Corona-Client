@@ -1,0 +1,19 @@
+<h3 *ngIf="!openForm"><mat-icon (click)="openForm=true">add_circle_outline</mat-icon>הוסף חיסון</h3>
+<form [formGroup]="form" #documentEditForm="ngForm" *ngIf="openForm">
+    <i class="material-icons">colorize</i><span>חיסון {{number}}</span>
+    <mat-form-field appearance="fill">
+        <mat-label> תאריך קבלת החיסון</mat-label>
+        <input autocomplete="autocomplete" formControlName="receivedDate" type="date" matInput
+            placeholder="receivedDate">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>יצרן</mat-label>
+        <mat-select formControlName="manufacturerId">
+            <mat-option [value]="m.id" *ngFor="let m of manufacturers"> {{m.manufacturerName}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <button *ngIf="!isVaccination; else newVaccination" class="btn-blue" type="submit" (click)="addVaccination();">הוסף</button>
+    <ng-template #newVaccination>
+        <button class="btn-blue" type="submit" (click)="updateVaccination();">עדכן</button>
+    </ng-template>
+</form>

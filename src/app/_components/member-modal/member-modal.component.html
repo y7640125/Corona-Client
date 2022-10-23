@@ -1,0 +1,76 @@
+<form class="form-wrapper-modal-t" [formGroup]="form" #documentEditForm="ngForm">
+    <h1 *ngIf="!memberId; else newMember">הוספת חבר קופת חולים</h1>
+    <ng-template #newMember>
+        <h1>עדכון חבר קופת חולים</h1>
+    </ng-template>
+    <mat-form-field appearance="fill">
+        <mat-label> שם פרטי</mat-label>
+        <input autocomplete="autocomplete" formControlName="firstName" type="text" matInput placeholder="firstName"
+            required />
+        <mat-error *ngIf="form.get('firstName').errors?.required"> חובה להזין שם פרטי.</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label> שם משפחה</mat-label>
+        <input autocomplete="autocomplete" formControlName="lastName" type="text" matInput placeholder="lastName"
+            required />
+        <mat-error *ngIf="form.get('lastName').errors?.required"> חובה להזין שם משפחה.</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label> תעודת זהות </mat-label>
+        <input autocomplete="autocomplete" formControlName="tz" type="text" matInput placeholder="tz" />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label> עיר</mat-label>
+        <input autocomplete="autocomplete" formControlName="city" type="text" matInput placeholder="city" required />
+        <mat-error *ngIf="form.get('city').errors?.required"> חובה להזין עיר.</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label> רחוב</mat-label>
+        <input autocomplete="autocomplete" formControlName="street" type="text" matInput placeholder="street"
+            required />
+        <mat-error *ngIf="form.get('street').errors?.required"> חובה להזין רחוב.</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label> מספר בניין</mat-label>
+        <input autocomplete="autocomplete" formControlName="number" type="text" matInput placeholder="number"
+            required />
+        <mat-error *ngIf="form.get('number').errors?.required"> חובה להזין מספר בניין.</mat-error>
+    </mat-form-field>
+    <input type="file" ng-disabled="true" (change)="uploadImageEvt($event)" accept="image/*" />
+    <mat-form-field appearance="fill">
+        <mat-label>תאריך לידה</mat-label>
+        <input autocomplete="autocomplete" formControlName="birthDate" type="date" matInput placeholder="birthDate">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label> טלפון </mat-label>
+        <input autocomplete="autocomplete" formControlName="phone" type="text" matInput placeholder="phone" required
+            pattern="[0-9]{9}" />
+        <mat-error *ngIf="form.get('phone').errors?.required">חובה להזין טלפון.</mat-error>
+        <mat-error *ngIf="(form.get('phone').dirty || form.get('phone').touched)"> טלפון מכיל 9 ספרות ללא מקף
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label> טלפון נייד</mat-label>
+        <input autocomplete="autocomplete" formControlName="mobilePhone" type="text" matInput placeholder="mobilePhone"
+            required pattern="[0-9]{10}" />
+        <mat-error *ngIf="(form.get('mobilePhone').dirty || form.get('mobilePhone').touched)"> טלפון נייד מכיל 10 ספרות
+            ללא
+            מקף
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label> תאריך קבלת תשובה חיובית</mat-label>
+        <input autocomplete="autocomplete" formControlName="positiveAnswerDate" type="date" matInput
+            placeholder="positiveAnswerDate">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label> תאריך החלמה</mat-label>
+        <input autocomplete="autocomplete" formControlName="recoveryDate" type="date" matInput
+            placeholder="recoveryDate">
+    </mat-form-field>
+    <h2>חיסונים</h2>
+    <app-vaccination-modal *ngFor="let n of numbers" [number]="n" [memberId]="memberId"
+        [currentVaccination]="getVaccination()" (sendVaccination)="addVaccination($event)">
+    </app-vaccination-modal>
+    <button class="btn-blue" type="submit" (click)="saveMember();">שמור</button>
+</form>

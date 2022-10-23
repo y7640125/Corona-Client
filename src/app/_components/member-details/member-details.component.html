@@ -1,0 +1,39 @@
+<div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutGap="0.5%" fxLayoutAlign="center">
+    <img mat-card-image [src]="imagePath(member.picture)" alt="Photo">
+        <h1>פרטים אישיים</h1>
+        <section class="section-con">
+            <mat-icon (click)="openModal()">edit</mat-icon>
+            <h4><strong>שם פרטי ומשפחה:</strong>{{member.firstName}} {{member.lastName}}</h4>
+            <h4><strong> תעודת זהות:</strong>{{member.tz}}</h4>
+            <h4><strong>תאריך לידה:</strong>{{member.birthDate|date:"dd/MM/yyyy"}}</h4>
+            <h2>כתובת</h2>
+            <h4><strong> עיר:</strong>{{member.city}}</h4>
+            <h4><strong>רחוב:</strong>{{member.street}}</h4>
+            <h4><strong> מספר בניין:</strong>{{member.number}}</h4>
+            <h2>פרטים ליצירת קשר</h2>
+            <h4><strong> טלפון:</strong>{{member.phone}}</h4>
+            <h4><strong>פלאפון:</strong>{{member.mobilePhone}}</h4>
+            <h2>קורונה</h2>
+            <h4><strong> תאריך קבלה תוצאה חיובית:</strong>
+                <span *ngIf="member.positiveAnswerDate; else noAnswer">{{member.positiveAnswerDate|date:"dd/MM/yyyy"}}</span>
+                <ng-template #noAnswer>
+                    <span>אין פרטים</span>
+                </ng-template>
+            </h4>
+            <h4><strong>תאריך החלמה:</strong>
+                <span *ngIf="member.recoveryDate; else noRecovery">{{member.recoveryDate|date:"dd/MM/yyyy"}}</span>
+                <ng-template #noRecovery>
+                    <span>אין פרטים</span>
+                </ng-template></h4>
+            <h2>חיסונים</h2>
+            <div  *ngIf="vaccinations; else noVaccinations">
+            <ul *ngFor="let v of vaccinations">
+                <li><h4><strong>תאריך קבלת החיסון:</strong>{{v.receivedDate|date:"dd/MM/yyyy"}}</h4></li>
+                <li><h4><strong>יצרן החיסון:</strong>{{getManufacturer(v.manufacturerId)}}</h4></li>
+            </ul> 
+        </div>
+            <ng-template #noVaccinations>
+                <div>אין פרטים</div>
+            </ng-template>
+        </section>
+</div>

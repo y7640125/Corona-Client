@@ -1,0 +1,35 @@
+.container{
+    text-align: center;
+}
+h1{
+    font-size: xx-large;
+}
+h2{
+    font-size: larger;
+}
+img {
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+  }
+
+section.section-con {
+    position: relative;
+    mat-icon {
+        float: right;
+        position: absolute;
+        top: -45px;
+        left: 800px;
+    }
+    h4 {
+        margin-bottom: 5px;
+        margin-top: 5px;
+        strong {
+            padding-left: 20px;
+            font-size: larger;
+            min-width: 145px;
+            display: inline-block;
+            text-align: right;
+        }
+    }
+}
